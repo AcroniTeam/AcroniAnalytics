@@ -1,9 +1,0 @@
-.chart-bar {
-    -fx-bar-fill: #0093FF;
-    -fx-font-size: 20px; 
-    -fx-font-family: 'Open Sans bold';
-    -fx-text-fill:#8B8B8B;
-}
-.default-color0.chart-bar { -fx-bar-fill: #0093ff; }
-.default-color1.chart-bar { -fx-bar-fill: #0093ff; }
-.default-color2.chart-bar { -fx-bar-fill: #0093ff; }
