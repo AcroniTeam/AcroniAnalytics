@@ -61,6 +61,7 @@ public class MasterpageController implements Initializable {
         sp.setContent(app);
         sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sp.setVvalue(0);
     }
 
     @FXML
@@ -78,6 +79,7 @@ public class MasterpageController implements Initializable {
         t.play(); 
         Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/jogo.fxml"));
         sp.setContent(app);
+        sp.setVvalue(0);
     }
 
     @FXML
@@ -102,6 +104,7 @@ public class MasterpageController implements Initializable {
         sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         sp.setFitToHeight(true);
         sp.setFitToWidth(true);
+        sp.setVvalue(0);
     }
 
     @FXML

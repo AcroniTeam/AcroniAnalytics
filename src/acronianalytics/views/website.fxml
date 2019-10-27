@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3000.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2231.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.WebsiteController">
    <children>
       <Label layoutX="97.0" layoutY="-28.0" prefHeight="192.0" prefWidth="1591.0" style="-fx-background-color: #ffffff; -fx-font-family: 'Open Sans bold'; -fx-font-size: 60px; -fx-background-radius: 40;" text="Estatísticas do site" textFill="#0093ff" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="-30.0">
          <padding>
@@ -13,5 +18,39 @@
          </padding>
       </Label>
       <Circle fill="#0093ff" layoutX="236.0" layoutY="80.0" radius="32.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <AnchorPane layoutX="592.0" layoutY="556.0" prefHeight="711.0" prefWidth="1124.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="277.0">
+         <children>
+            <AreaChart layoutX="182.0" layoutY="269.0" prefHeight="300.0" prefWidth="700.0" stylesheets="@../stylesheet/areachart.css">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </AreaChart>
+            <Label layoutX="196.0" layoutY="85.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="Média de visualizacões por mês" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="99.0" />
+         </children></AnchorPane>
+      <AnchorPane layoutX="368.0" layoutY="1266.0" prefHeight="515.0" prefWidth="681.0" style="-fx-background-color: #ffffff; -fx-background-radius: 25;" AnchorPane.bottomAnchor="507.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="864.0" AnchorPane.topAnchor="1209.0">
+         <children>
+            <Label alignment="CENTER" layoutX="93.0" layoutY="36.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 40px;" text="Ranking das marcas" textAlignment="CENTER" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="35.0" />
+            <Label layoutX="72.0" layoutY="160.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="160.0" />
+            <Label layoutX="72.0" layoutY="215.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="215.0" />
+            <Label layoutX="72.0" layoutY="270.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="270.0" />
+            <Label layoutX="72.0" layoutY="325.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="325.0" />
+            <Label layoutX="354.0" layoutY="160.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" textFill="#706e6e" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="160.0" />
+            <Label layoutX="358.0" layoutY="208.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" textFill="#706e6e" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="215.0" />
+            <Label layoutX="397.0" layoutY="276.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" textFill="#706e6e" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="270.0" />
+            <Label layoutX="392.0" layoutY="313.0" prefHeight="55.0" prefWidth="166.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" textFill="#706e6e" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="325.0" />
+         </children>
+      </AnchorPane>
+      <PieChart fx:id="pie" layoutX="1176.0" layoutY="1258.0" prefHeight="350.0" prefWidth="350.0" stylesheets="@../stylesheet/piechart.css" AnchorPane.topAnchor="1209.0" />
+      <Pane layoutX="1056.0" layoutY="1627.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #454545; -fx-background-radius: 10;" />
+      <Label layoutX="1145.0" layoutY="1624.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="HyperX" />
+      <Pane layoutX="1059.0" layoutY="1701.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #006cbc; -fx-background-radius: 10;" />
+      <Label layoutX="1147.0" layoutY="1696.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Logitech" />
+      <Pane layoutX="1396.0" layoutY="1628.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #00880A; -fx-background-radius: 10;" />
+      <Label layoutX="1485.0" layoutY="1625.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Razer" />
+      <Pane layoutX="1399.0" layoutY="1702.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #D10000; -fx-background-radius: 10;" />
+      <Label layoutX="1487.0" layoutY="1697.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Redragon" />
    </children>
 </AnchorPane>
