@@ -47,6 +47,7 @@ public class WebsiteController implements Initializable {
     @FXML
     private NumberAxis yAxis;
     boolean[] aux = new boolean[3];
+    int razer, logitech, redragon, hyperx;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,10 +63,10 @@ public class WebsiteController implements Initializable {
             Gson gson = new Gson();
             JsonElement element = gson.fromJson (response, JsonElement.class);
             JsonObject json = element.getAsJsonObject(); 
-            int razer = Integer.parseInt(json.get("Razer").toString());
-            int logitech = Integer.parseInt(json.get("Logitech").toString());
-            int redragon = Integer.parseInt(json.get("Redragon").toString());
-            int hyperx = Integer.parseInt(json.get("HyperX").toString());
+            razer = Integer.parseInt(json.get("Razer").toString());
+            logitech = Integer.parseInt(json.get("Logitech").toString());
+            redragon = Integer.parseInt(json.get("Redragon").toString());
+            hyperx = Integer.parseInt(json.get("HyperX").toString());
             int total = razer + hyperx + logitech + redragon;
             ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
             int prazer = (razer*100)/total;
@@ -87,21 +88,27 @@ public class WebsiteController implements Initializable {
             Collections.sort(a, Collections.reverseOrder());
             first.getText();
             first.setText("1. "+(a.get(0)).split(",")[1] +" | ");
-            firstr.setText("Comprado " +(Integer.parseInt((a.get(0)).split(",")[0]))/100*total + " vezes: " + (a.get(0)).split(",")[0] + "%");
+            firstr.setText("Comprado " + setRightText((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
             second.setText("2. "+(a.get(1)).split(",")[1]+" | ");
+            secondr.setText("Comprado " + setRightText((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
             third.setText("3. "+(a.get(2)).split(",")[1]+" | ");
+            thirdr.setText("Comprado " + setRightText((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
             fourth.setText("4. "+(a.get(3)).split(",")[1]+" | ");
+            fourthr.setText("Comprado " + setRightText((a.get(3)).split(",")[1]) + " vezes: " + (a.get(3)).split(",")[0] + "%");
         } catch (FirebaseException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        
-        
-        
     }
-    
+    public int setRightText(String marca) {
+        if (marca.equals("Razer"))
+            return razer;
+        else if (marca.equals("Logitech"))
+            return logitech;
+        else if (marca.equals("Hyperx"))
+            return hyperx;
+        else
+            return redragon;
+    }
 }
