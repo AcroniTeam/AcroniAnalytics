@@ -110,53 +110,54 @@ public class JogoController implements Initializable {
         String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
         String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
         Firebase firebase;
-        yAxis.setLabel("N.º pessoas");
-        XYChart.Series<String, Number> series1 = new XYChart.Series<>(); 
-        XYChart.Series<String, Number> series2 = new XYChart.Series<>(); 
-        XYChart.Series<String, Number> series3 = new XYChart.Series<>(); 
-        XYChart.Series<String, Number> series4 = new XYChart.Series<>(); 
-        XYChart.Series<String, Number> series5 = new XYChart.Series<>(); 
-        XYChart.Series<String, Number> series6 = new XYChart.Series<>(); 
-        XYChart.Series<String, Number> series7 = new XYChart.Series<>(); 
-        series1.setName("5"); 
-        series1.getData().add(new XYChart.Data<>("", 240)); 
-        series2.setName("7"); 
-        series2.getData().add(new XYChart.Data<>("", 490)); 
-        series3.setName("10"); 
-        series3.getData().add(new XYChart.Data<>("", 330)); 
-        series4.setName("15"); 
-        series4.getData().add(new XYChart.Data<>("", 100)); 
-        series5.setName("20"); 
-        series5.getData().add(new XYChart.Data<>("", 75)); 
-        series6.setName("25"); 
-        series6.getData().add(new XYChart.Data<>("", 55)); 
-        series7.setName("30"); 
-        series7.getData().add(new XYChart.Data<>("", 20)); 
-        bar.getData().addAll(series1, series2, series3, series4, series5, series6, series7);
-        bar.setLegendVisible(true);
-        bar.setBarGap(40);
-        bar.setLegendVisible(false);
-        bar.lookupAll(".default-color0.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
-        bar.lookupAll(".default-color6.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
-        bar.lookupAll(".default-color1.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
-        bar.lookupAll(".default-color2.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
-        bar.lookupAll(".default-color3.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
-        bar.lookupAll(".default-color4.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
-        bar.lookupAll(".default-color5.chart-bar").forEach((n) -> {
-            n.setStyle("-fx-bar-fill: #0093ff80;");
-        });
+        
+        try {
+            firebase = new Firebase(firebase_baseUrl);
+            String response;
+            response = firebase.get("/relatoriosGlobais/game/desconto").getRawBody();
+                       
+            Gson gson = new Gson();
+            JsonElement element = gson.fromJson (response, JsonElement.class);
+            JsonObject json = element.getAsJsonObject(); 
+            yAxis.setLabel("N.º pessoas");
+            XYChart.Series<String, Number> series1 = new XYChart.Series<>(); 
+            for (int i = 1; i < 21; i++) {
+                series1.setName(i+"");
+                series1.getData().add(new XYChart.Data<>(i+"", Integer.parseInt(json.get(""+i).toString())));   
+            }
+            bar.getData().add(series1);
+            bar.setLegendVisible(false);
+            bar.setBarGap(0);
+            
+            bar.lookupAll(".default-color0.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color6.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color1.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color2.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color3.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color4.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color5.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            bar.lookupAll(".default-color7.chart-bar").forEach((n) -> {
+                n.setStyle("-fx-bar-fill: #0093ff80;");
+            });
+            
+        } catch(Exception e) {} catch (FirebaseException ex) {
+            Logger.getLogger(JogoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         //Gráfico das fases
         try {

@@ -87,7 +87,7 @@ public class AplicativoController implements Initializable {
                 series.getData().add(new XYChart.Data<>(mesPTBR(i),Integer.parseInt(json.getAsJsonObject(mesPTBR(i)).get("qntTecladosProduzidosPorMes").toString())));
             }
             line.setLegendVisible(false);
-            yAxis.setLabel("N.º Visitas");
+            yAxis.setLabel("N.º Teclados");
             yAxis.setTickUnit(100);
             line.getData().add(series);
         } catch (FirebaseException ex) {
