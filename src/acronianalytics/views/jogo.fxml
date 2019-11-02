@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3000.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.JogoController">
+<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="3000.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.JogoController">
    <children>
-      <Label layoutX="1202.0" layoutY="1661.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Fase Aérea" />
+      <Label layoutX="1242.0" layoutY="1759.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Fase Aérea" />
       <Label layoutX="97.0" layoutY="-28.0" prefHeight="192.0" prefWidth="1591.0" style="-fx-background-color: #ffffff; -fx-font-family: 'Open Sans bold'; -fx-font-size: 60px; -fx-background-radius: 40;" text="Estatísticas do jogo" textFill="#0093ff" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="-30.0">
          <padding>
             <Insets left="200.0" top="25.0" />
@@ -55,12 +55,12 @@
             
          </children>
       </AnchorPane>
-      <PieChart fx:id="pie" layoutX="1176.0" layoutY="1258.0" prefHeight="350.0" prefWidth="350.0" stylesheets="@../stylesheet/piechart-fases.css" AnchorPane.topAnchor="1209.0" />
-      <Pane layoutX="1113.0" layoutY="1587.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #c7c700; -fx-background-radius: 10;" />
-      <Label layoutX="1202.0" layoutY="1587.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Mundo Similar" />
-      <Pane layoutX="1113.0" layoutY="1661.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #637dc8; -fx-background-radius: 10;" />
-      <Pane layoutX="1113.0" layoutY="1739.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #00C400; -fx-background-radius: 10;" />
-      <Label layoutX="1202.0" layoutY="1739.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Fase Distorcida" />
+      <PieChart fx:id="pie" layoutX="1176.0" layoutY="1258.0" prefHeight="500.0" prefWidth="500.0" stylesheets="@../stylesheet/piechart-fases.css" AnchorPane.leftAnchor="1088.0" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="1107.0" />
+      <Pane layoutX="1153.0" layoutY="1685.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #c7c700; -fx-background-radius: 10;" />
+      <Label layoutX="1242.0" layoutY="1685.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Mundo Similar" />
+      <Pane layoutX="1153.0" layoutY="1759.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #637dc8; -fx-background-radius: 10;" />
+      <Pane layoutX="1153.0" layoutY="1837.0" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #00C400; -fx-background-radius: 10;" />
+      <Label layoutX="1242.0" layoutY="1837.0" prefHeight="50.0" prefWidth="272.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 32px;" text="Fase Distorcida" />
       <Pane layoutX="93.0" layoutY="981.0" prefHeight="200.0" prefWidth="200.0" />
    </children>
    
