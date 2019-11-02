@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2231.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.WebsiteController">
+<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1861.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.WebsiteController">
    <children>
       <Label layoutX="97.0" layoutY="-28.0" prefHeight="192.0" prefWidth="1591.0" style="-fx-background-color: #ffffff; -fx-font-family: 'Open Sans bold'; -fx-font-size: 60px; -fx-background-radius: 40;" text="Estatísticas do site" textFill="#0093ff" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="-30.0">
          <padding>
@@ -30,7 +30,7 @@
             </AreaChart>
             <Label layoutX="196.0" layoutY="85.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="Média de visualizacões por mês" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="99.0" />
          </children></AnchorPane>
-      <AnchorPane layoutX="368.0" layoutY="1266.0" prefHeight="515.0" prefWidth="681.0" style="-fx-background-color: #ffffff; -fx-background-radius: 25;" AnchorPane.bottomAnchor="507.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="864.0" AnchorPane.topAnchor="1209.0">
+      <AnchorPane layoutX="368.0" layoutY="1266.0" prefHeight="434.0" prefWidth="681.0" style="-fx-background-color: #ffffff; -fx-background-radius: 25;" AnchorPane.bottomAnchor="218.0" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="864.0" AnchorPane.topAnchor="1209.0">
          <children>
             <Label alignment="CENTER" layoutX="93.0" layoutY="36.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 40px;" text="Ranking das marcas" textAlignment="CENTER" AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="35.0" />
             <Label fx:id="first" layoutX="72.0" layoutY="160.0" prefHeight="55.0" prefWidth="220.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="1. Razer |" AnchorPane.leftAnchor="72.0" AnchorPane.topAnchor="160.0" />

@@ -69,7 +69,7 @@ public class WebsiteController implements Initializable {
             JsonElement element = gson.fromJson (response, JsonElement.class);
             JsonObject json = element.getAsJsonObject(); 
             XYChart.Series series = new XYChart.Series();
-            for (int i = 1; i <= Calendar.getInstance().get(Calendar.MONTH); i++) {
+            for (int i = 1; i <= Calendar.getInstance().get(Calendar.MONTH)+1; i++) {
                 series.getData().add(new XYChart.Data<>(mesPTBR(i),Integer.parseInt(json.getAsJsonObject(mesPTBR(i)).get("numVisitasMensais").toString())));
             }
             line.setLegendVisible(false);

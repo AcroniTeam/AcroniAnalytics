@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -76,6 +78,27 @@ public class AplicativoController implements Initializable {
         try {
             firebase = new Firebase(firebase_baseUrl);
             String response;
+            response = firebase.get("/relatoriosMensais/desktop/"+Calendar.getInstance().get(Calendar.YEAR)).getRawBody();
+            Gson gson = new Gson();
+            JsonElement element = gson.fromJson (response, JsonElement.class);
+            JsonObject json = element.getAsJsonObject(); 
+            XYChart.Series series = new XYChart.Series();
+            for (int i = 1; i <= Calendar.getInstance().get(Calendar.MONTH)+1; i++) {
+                series.getData().add(new XYChart.Data<>(mesPTBR(i),Integer.parseInt(json.getAsJsonObject(mesPTBR(i)).get("qntTecladosProduzidosPorMes").toString())));
+            }
+            line.setLegendVisible(false);
+            yAxis.setLabel("N.º Visitas");
+            yAxis.setTickUnit(100);
+            line.getData().add(series);
+        } catch (FirebaseException ex) {
+            Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            firebase = new Firebase(firebase_baseUrl);
+            String response;
             response = firebase.get("/relatoriosGlobais/site/premium").getRawBody();
             Gson gson = new Gson();
             JsonElement element = gson.fromJson (response, JsonElement.class);
@@ -94,116 +117,22 @@ public class AplicativoController implements Initializable {
             pie.setLegendVisible(false);
             pie.setLabelsVisible(false);
             
-        } catch (Exception e) {} catch (FirebaseException ex) {
+        } catch (FirebaseException ex) {
+            Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
-        line.setLegendVisible(false);
-        yAxis.setLabel("N.º Teclados");
-        yAxis.setTickUnit(100);
-                
-        XYChart.Series series = new XYChart.Series();
-        series.getData().add(new XYChart.Data("Janeiro",100));
-        series.getData().add(new XYChart.Data<>("Fevereiro",200));
-        series.getData().add(new XYChart.Data<>("Março",300));
-        series.getData().add(new XYChart.Data<>("Abril",200));
-        series.getData().add(new XYChart.Data<>("Maio",250));
-        series.getData().add(new XYChart.Data<>("Junho",150));
-        series.getData().add(new XYChart.Data<>("Julho",50));
-        line.getData().add(series);
     }    
     
-    @FXML
-    public void sair() {
-        Platform.exit();
+    public String getActualMonth()
+    {
+        int nMes = Calendar.getInstance().get(Calendar.MONTH);
+        String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+        return meses[nMes - 1];
     }
-
-    @FXML
-    private void entered() {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        t.setToX(150);
-        t.setNode(gplabels);
-        t.play(); 
-        t.setOnFinished((ActionEvent actionEvent) -> {
-            gplabels.setEffect(new DropShadow(5, Color.BLACK));
-        });
+    public String mesPTBR(int n) {
+        String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+        return meses[n - 1];
     }
-    
-    @FXML
-    private void exited() {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        t.setToX(0);
-        t.setNode(gplabels);
-        t.play();  
-        t.setOnFinished((ActionEvent actionEvent) -> {
-            gplabels.setEffect(null);
-        });
-    }
-    
-    @FXML
-    void entrarApp(MouseEvent event) throws IOException {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        if (aux[0]) {
-            t.setToY(150);
-            aux[0] = false;
-            aux[1] = true;
-        }
-        else if (aux[2]) {
-            t.setToY(150);
-            aux[2] = false;
-            aux[1] = true;
-        }
-        t.setNode(active);
-        t.play();  
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/aplicativo.fxml"));
-        sp.setContent(app);
-    }
-
-    @FXML
-    void entrarJogo(MouseEvent event) throws IOException {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        if (aux[1]) {
-            aux[1] = false;
-        } else if (aux[2]) {
-            aux[2] = false;
-        }
-        aux[0] = true;
-        t.setToY(0);
-        t.setNode(active);
-        t.play(); 
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/jogo.fxml"));
-        sp.setContent(app);
-    }
-
-    @FXML
-    void entrarWebsite(MouseEvent event) throws IOException {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        if (aux[0]) {
-            t.setToY(300);
-            aux[0] = false;
-            aux[2] = true;
-        }
-        else if (aux[1]) {
-            t.setToY(300);
-            aux[1] = false;
-            aux[2] = true;
-        }
-        t.setNode(active);
-        t.play();
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/website.fxml"));
-        sp.setContent(app);sp.vbarPolicyProperty();
-    }
-    
-    public void t(ScrollPane sp) {
-        this.sp = sp;
-    }
-    
         
 }

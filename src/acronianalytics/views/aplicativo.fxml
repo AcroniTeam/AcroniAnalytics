@@ -32,7 +32,7 @@
             <Label alignment="CENTER" layoutX="103.0" layoutY="55.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="Média de teclados criados por mês" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="49.0" />
             <AreaChart fx:id="line" layoutX="66.0" layoutY="155.0" prefHeight="416.0" prefWidth="900.0" stylesheets="@../stylesheet/areachart.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="45.0">
               <xAxis>
-                <CategoryAxis endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" tickLabelRotation="360.0" />
+                <CategoryAxis endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 15px;" tickLabelFill="#8b8b8b" tickLabelRotation="360.0" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" />
