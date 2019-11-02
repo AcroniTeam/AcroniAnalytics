@@ -74,7 +74,7 @@ public class AplicativoController implements Initializable {
         String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
         String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
         Firebase firebase;
-        
+        //Gráfico dos teclados criados
         try {
             firebase = new Firebase(firebase_baseUrl);
             String response;
@@ -95,7 +95,7 @@ public class AplicativoController implements Initializable {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        //Gráfico dos ususários premium
         try {
             firebase = new Firebase(firebase_baseUrl);
             String response;
