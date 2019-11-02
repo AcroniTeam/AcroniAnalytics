@@ -18,7 +18,10 @@ import net.thegreshams.firebase4j.service.Firebase;
 import org.codehaus.jackson.JsonParser;
 import com.google.gson.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
 public class WebsiteController implements Initializable {
@@ -46,6 +49,8 @@ public class WebsiteController implements Initializable {
 
     @FXML
     private NumberAxis yAxis;
+    @FXML
+    private AreaChart<?,?> line;
     boolean[] aux = new boolean[3];
     int razer, logitech, redragon, hyperx;
     
@@ -55,6 +60,26 @@ public class WebsiteController implements Initializable {
         String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
         String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
         Firebase firebase;
+        //Gráfico das visitas
+        try {
+            firebase = new Firebase(firebase_baseUrl);
+            String response;
+            response = firebase.get("/relatoriosMensais/site/"+Calendar.getInstance().get(Calendar.YEAR)).getRawBody();
+            Gson gson = new Gson();
+            JsonElement element = gson.fromJson (response, JsonElement.class);
+            JsonObject json = element.getAsJsonObject(); 
+            XYChart.Series series = new XYChart.Series();
+            for (int i = 1; i <= Calendar.getInstance().get(Calendar.MONTH); i++) {
+                series.getData().add(new XYChart.Data<>(mesPTBR(i),Integer.parseInt(json.getAsJsonObject(mesPTBR(i)).get("numVisitasMensais").toString())));
+            }
+            line.setLegendVisible(false);
+            yAxis.setLabel("N.º Visitas");
+            yAxis.setTickUnit(100);
+            line.getData().add(series);
+        } catch (Exception e) {} catch (FirebaseException ex) {
+            Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //Gráfico das marcas
         try {
             firebase = new Firebase(firebase_baseUrl);
             String response;
@@ -110,5 +135,15 @@ public class WebsiteController implements Initializable {
             return hyperx;
         else
             return redragon;
+    }
+    public String getActualMonth()
+    {
+        int nMes = Calendar.getInstance().get(Calendar.MONTH);
+        String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+        return meses[nMes - 1];
+    }
+    public String mesPTBR(int n) {
+        String[] meses = { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+        return meses[n - 1];
     }
 }

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2231.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.WebsiteController">
+<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2231.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.WebsiteController">
    <children>
       <Label layoutX="97.0" layoutY="-28.0" prefHeight="192.0" prefWidth="1591.0" style="-fx-background-color: #ffffff; -fx-font-family: 'Open Sans bold'; -fx-font-size: 60px; -fx-background-radius: 40;" text="Estatísticas do site" textFill="#0093ff" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="-30.0">
          <padding>
@@ -20,12 +20,12 @@
       <Circle fill="#0093ff" layoutX="236.0" layoutY="80.0" radius="32.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <AnchorPane layoutX="592.0" layoutY="556.0" prefHeight="711.0" prefWidth="1124.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" AnchorPane.leftAnchor="365.0" AnchorPane.topAnchor="277.0">
          <children>
-            <AreaChart layoutX="182.0" layoutY="269.0" prefHeight="300.0" prefWidth="700.0" stylesheets="@../stylesheet/areachart.css">
+            <AreaChart fx:id="line" layoutX="22.0" layoutY="210.0" prefHeight="402.0" prefWidth="1077.0" stylesheets="@../stylesheet/areachart.css">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <CategoryAxis endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-size: 15px; -fx-tick-label-font-family: 'Open Sans bold';" tickLabelFill="#8b8b8b" tickLabelGap="0.0" tickLabelRotation="360.0" />
               </xAxis>
               <yAxis>
-                <NumberAxis side="LEFT" />
+                <NumberAxis fx:id="yAxis" side="LEFT" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" />
               </yAxis>
             </AreaChart>
             <Label layoutX="196.0" layoutY="85.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="Média de visualizacões por mês" AnchorPane.leftAnchor="108.0" AnchorPane.topAnchor="99.0" />

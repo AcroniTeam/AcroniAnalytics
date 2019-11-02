@@ -1,9 +1,16 @@
 package acronianalytics.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -13,12 +20,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -26,6 +33,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import net.thegreshams.firebase4j.error.FirebaseException;
+import net.thegreshams.firebase4j.service.Firebase;
 
 
 public class JogoController implements Initializable {
@@ -37,7 +46,20 @@ public class JogoController implements Initializable {
     
     @FXML
     private Pane active;
-    
+    @FXML
+    private PieChart pie;
+    @FXML
+    private Label first;
+    @FXML
+    private Label second;
+    @FXML
+    private Label third;
+    @FXML
+    private Label firstr;
+    @FXML
+    private Label secondr;
+    @FXML
+    private Label thirdr;
     @FXML
     private BarChart<String, Number> bar;
     
@@ -48,9 +70,13 @@ public class JogoController implements Initializable {
     private NumberAxis yAxis;
     
     private static ScrollPane sp;
+    int aerea, distorcida, similar;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
+        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
+        Firebase firebase;
         yAxis.setLabel("N.º pessoas");
         XYChart.Series<String, Number> series1 = new XYChart.Series<>(); 
         XYChart.Series<String, Number> series2 = new XYChart.Series<>(); 
@@ -98,8 +124,58 @@ public class JogoController implements Initializable {
         bar.lookupAll(".default-color5.chart-bar").forEach((n) -> {
             n.setStyle("-fx-bar-fill: #0093ff80;");
         });
+        
+        
+        try {
+            firebase = new Firebase(firebase_baseUrl);
+            String response;
+            response = firebase.get("/relatoriosGlobais/game/fases").getRawBody();
+                       
+            Gson gson = new Gson();
+            JsonElement element = gson.fromJson (response, JsonElement.class);
+            JsonObject json = element.getAsJsonObject(); 
+            aerea = Integer.parseInt(json.get("Fase Aérea").toString());
+            distorcida = Integer.parseInt(json.get("Fase Distorcida").toString());
+            similar = Integer.parseInt(json.get("Mundo Similar").toString());
+            
+            int total = aerea + distorcida + similar;
+            ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
+            int paerea = (aerea*100)/total;
+            int pdistorcida = (distorcida*100)/total;
+            int psimilar = (similar*100)/total;
+            list.add(new PieChart.Data("Mundo Similar", psimilar));
+            list.add(new PieChart.Data("Fase Aérea", paerea));
+            list.add(new PieChart.Data("Fase Distorcida", pdistorcida));
+            pie.setData(list);
+            pie.setLegendVisible(false);
+            pie.setLabelsVisible(false);
+            ArrayList<String> a = new ArrayList<String>();
+            a.add(paerea + ",Fase Aérea");
+            a.add(pdistorcida + ",Fase Distorcida");
+            a.add(psimilar + ",Mundo Similar");
+            Collections.sort(a, Collections.reverseOrder());
+            first.getText();
+            first.setText("1. "+(a.get(0)).split(",")[1] +" | ");
+            firstr.setText(setRightTextFases((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
+            second.setText("2. "+(a.get(1)).split(",")[1]+" | ");
+            secondr.setText(setRightTextFases((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
+            third.setText("3. "+(a.get(2)).split(",")[1]+" | ");
+            thirdr.setText(setRightTextFases((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
+            
+        } catch (FirebaseException ex) {
+            Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
-    
+    public int setRightTextFases(String marca) {
+        if (marca.equals("Fase Aérea"))
+            return aerea;
+        else if (marca.equals("Fase Distorcida"))
+            return distorcida;
+        else 
+            return similar;
+    }
     @FXML
     public void sair() {
         Platform.exit();

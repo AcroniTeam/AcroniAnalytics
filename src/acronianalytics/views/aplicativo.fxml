@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1040.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.AplicativoController">
+<AnchorPane fx:id="anchorApp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1040.0" prefWidth="1783.0" style="-fx-background-color: 'transparent';" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="acronianalytics.controllers.AplicativoController">
    <children>
       <Label layoutX="97.0" layoutY="-28.0" prefHeight="192.0" prefWidth="1591.0" style="-fx-background-color: #ffffff; -fx-font-family: 'Open Sans bold'; -fx-font-size: 60px; -fx-background-radius: 40;" text="Estatísticas do aplicativo" textFill="#0093ff" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="96.0" AnchorPane.topAnchor="-30.0">
          <padding>
@@ -32,7 +32,7 @@
             <Label alignment="CENTER" layoutX="103.0" layoutY="55.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="Média de teclados criados por mês" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="49.0" />
             <AreaChart fx:id="line" layoutX="66.0" layoutY="155.0" prefHeight="416.0" prefWidth="900.0" stylesheets="@../stylesheet/areachart.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="45.0">
               <xAxis>
-                <CategoryAxis gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" />
+                <CategoryAxis endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" tickLabelRotation="360.0" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" />
