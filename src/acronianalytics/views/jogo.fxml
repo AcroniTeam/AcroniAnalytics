@@ -25,7 +25,7 @@
          
           <children>
               <Label alignment="CENTER" layoutX="103.0" layoutY="55.0" style="-fx-font-family: 'Open Sans bold'; -fx-font-size: 30px;" text="Descontos" textAlignment="CENTER" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="49.0" />
-            <BarChart id="barchart" fx:id="bar" prefHeight="416.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" styleClass=".chart-bar" stylesheets="@../stylesheet/areachart" verticalGridLinesVisible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="45.0">
+            <BarChart id="barchart" fx:id="bar" prefHeight="416.0" prefWidth="900.0" style="-fx-background-color: #ffffff;" styleClass=".chart-bar" stylesheets="@../stylesheet/areachart.css" verticalGridLinesVisible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="45.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" style="-fx-tick-label-font-size: 'Open Sans bold'; -fx-tick-label-font-family: 20px;" tickLabelFill="#8b8b8b" fx:id="xAxis">
                      <tickLabelFont>
