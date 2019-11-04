@@ -20,7 +20,9 @@ import com.google.gson.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import javafx.application.Platform;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 
@@ -45,7 +47,7 @@ public class WebsiteController implements Initializable {
     @FXML
     private Label fourthr;
     @FXML
-    private NumberAxis xAxis;
+    private CategoryAxis xAxis;
 
     @FXML
     private NumberAxis yAxis;
@@ -53,13 +55,14 @@ public class WebsiteController implements Initializable {
     private AreaChart<?,?> line;
     boolean[] aux = new boolean[3];
     int razer, logitech, redragon, hyperx;
+    String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
+        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
+        Firebase firebase;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         aux[0] = true;
-        String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
-        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
-        Firebase firebase;
+        new Thread(() -> {
         //Gráfico das visitas
         try {
             firebase = new Firebase(firebase_baseUrl);
@@ -72,10 +75,13 @@ public class WebsiteController implements Initializable {
             for (int i = 1; i <= Calendar.getInstance().get(Calendar.MONTH)+1; i++) {
                 series.getData().add(new XYChart.Data<>(mesPTBR(i),Integer.parseInt(json.getAsJsonObject(mesPTBR(i)).get("numVisitasMensais").toString())));
             }
-            line.setLegendVisible(false);
-            yAxis.setLabel("N.º Visitas");
-            yAxis.setTickUnit(100);
-            line.getData().add(series);
+            Platform.runLater(() -> {
+                xAxis.setAnimated(false);
+                line.setLegendVisible(false);
+                yAxis.setLabel("N.º Visitas");
+                yAxis.setTickUnit(100);
+                line.getData().add(series);
+            });
         } catch (Exception e) {} catch (FirebaseException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -102,29 +108,34 @@ public class WebsiteController implements Initializable {
             list.add(new PieChart.Data("Logitech", plogitech));
             list.add(new PieChart.Data("Razer", prazer));
             list.add(new PieChart.Data("Redragon", predragon));
-            pie.setData(list);
-            pie.setLegendVisible(false);
-            pie.setLabelsVisible(false);
+            Platform.runLater(() -> {
+                pie.setData(list);
+                pie.setLegendVisible(false);
+                pie.setLabelsVisible(false);
+            });    
             ArrayList<String> a = new ArrayList<String>();
             a.add(prazer + ",Razer");
             a.add(plogitech + ",Logitech");
             a.add(predragon + ",Redragon");
             a.add(phyperx + ",Hyperx");
             Collections.sort(a, Collections.reverseOrder());
-            first.getText();
-            first.setText("1. "+(a.get(0)).split(",")[1] +" | ");
-            firstr.setText("Comprado " + setRightText((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
-            second.setText("2. "+(a.get(1)).split(",")[1]+" | ");
-            secondr.setText("Comprado " + setRightText((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
-            third.setText("3. "+(a.get(2)).split(",")[1]+" | ");
-            thirdr.setText("Comprado " + setRightText((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
-            fourth.setText("4. "+(a.get(3)).split(",")[1]+" | ");
-            fourthr.setText("Comprado " + setRightText((a.get(3)).split(",")[1]) + " vezes: " + (a.get(3)).split(",")[0] + "%");
+            Platform.runLater(() -> {
+                first.getText();
+                first.setText("1. "+(a.get(0)).split(",")[1] +" | ");
+                firstr.setText("Comprado " + setRightText((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
+                second.setText("2. "+(a.get(1)).split(",")[1]+" | ");
+                secondr.setText("Comprado " + setRightText((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
+                third.setText("3. "+(a.get(2)).split(",")[1]+" | ");
+                thirdr.setText("Comprado " + setRightText((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
+                fourth.setText("4. "+(a.get(3)).split(",")[1]+" | ");
+                fourthr.setText("Comprado " + setRightText((a.get(3)).split(",")[1]) + " vezes: " + (a.get(3)).split(",")[0] + "%");
+            });
         } catch (FirebaseException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }).start();
     }
     public int setRightText(String marca) {
         if (marca.equals("Razer"))

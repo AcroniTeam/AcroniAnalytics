@@ -22,7 +22,7 @@
          <children>
             <AreaChart fx:id="line" layoutX="22.0" layoutY="210.0" prefHeight="402.0" prefWidth="1077.0" stylesheets="@../stylesheet/areachart.css">
               <xAxis>
-                <CategoryAxis endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-size: 15px; -fx-tick-label-font-family: 'Open Sans bold';" tickLabelFill="#8b8b8b" tickLabelGap="0.0" tickLabelRotation="360.0" />
+                <CategoryAxis endMargin="0.0" gapStartAndEnd="false" side="BOTTOM" startMargin="0.0" style="-fx-tick-label-font-size: 15px; -fx-tick-label-font-family: 'Open Sans bold';" tickLabelFill="#8b8b8b" tickLabelGap="0.0" tickLabelRotation="360.0" fx:id="xAxis" />
               </xAxis>
               <yAxis>
                 <NumberAxis fx:id="yAxis" side="LEFT" style="-fx-tick-label-font-family: 'Open Sans bold'; -fx-tick-label-font-size: 20px;" tickLabelFill="#8b8b8b" />

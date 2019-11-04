@@ -3,23 +3,19 @@ package acronianalytics.controllers;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -27,12 +23,8 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
 import net.thegreshams.firebase4j.error.FirebaseException;
 import net.thegreshams.firebase4j.service.Firebase;
 
@@ -104,12 +96,16 @@ public class JogoController implements Initializable {
     
     private static ScrollPane sp;
     int aerea, distorcida, similar, bloco, bomba, controlador, trampolim;
+    String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
+        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
+        Firebase firebase;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
-        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
-        Firebase firebase;
+        
+        new Thread(() -> {
+            
+        
         
         try {
             firebase = new Firebase(firebase_baseUrl);
@@ -119,40 +115,26 @@ public class JogoController implements Initializable {
             Gson gson = new Gson();
             JsonElement element = gson.fromJson (response, JsonElement.class);
             JsonObject json = element.getAsJsonObject(); 
-            yAxis.setLabel("N.º pessoas");
+            
+            
             XYChart.Series<String, Number> series1 = new XYChart.Series<>(); 
             for (int i = 1; i < 21; i++) {
                 series1.setName(i+"");
                 series1.getData().add(new XYChart.Data<>(i+"", Integer.parseInt(json.get(""+i).toString())));   
             }
-            bar.getData().add(series1);
-            bar.setLegendVisible(false);
-            bar.setBarGap(0);
             
-            bar.lookupAll(".default-color0.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
+            Platform.runLater(() -> {
+                xAxis.setAnimated(false);
+                yAxis.setLabel("N.º pessoas");
+                
+                bar.getData().add(series1);
+                bar.setLegendVisible(false);
+                bar.setBarGap(0);
+                bar.lookupAll(".default-color0.chart-bar").forEach((n) -> {
+                    n.setStyle("-fx-bar-fill: #0093ff80;");
+                });
             });
-            bar.lookupAll(".default-color6.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
-            bar.lookupAll(".default-color1.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
-            bar.lookupAll(".default-color2.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
-            bar.lookupAll(".default-color3.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
-            bar.lookupAll(".default-color4.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
-            bar.lookupAll(".default-color5.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
-            bar.lookupAll(".default-color7.chart-bar").forEach((n) -> {
-                n.setStyle("-fx-bar-fill: #0093ff80;");
-            });
+            
             
         } catch(Exception e) {} catch (FirebaseException ex) {
             Logger.getLogger(JogoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,21 +162,24 @@ public class JogoController implements Initializable {
             list.add(new PieChart.Data("Mundo Similar", psimilar));
             list.add(new PieChart.Data("Fase Aérea", paerea));
             list.add(new PieChart.Data("Fase Distorcida", pdistorcida));
-            pie.setData(list);
-            pie.setLegendVisible(false);
-            pie.setLabelsVisible(false);
+            Platform.runLater(() -> {
+                pie.setData(list);
+                pie.setLegendVisible(false);
+                pie.setLabelsVisible(false);
+            });
             ArrayList<String> a = new ArrayList<String>();
             a.add(paerea + ",Fase Aérea");
             a.add(pdistorcida + ",Fase Distorcida");
             a.add(psimilar + ",Mundo Similar");
             Collections.sort(a, Collections.reverseOrder());
-            first.setText("1. "+(a.get(0)).split(",")[1] +" | ");
-            firstr.setText(setRightTextFases((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
-            second.setText("2. "+(a.get(1)).split(",")[1]+" | ");
-            secondr.setText(setRightTextFases((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
-            third.setText("3. "+(a.get(2)).split(",")[1]+" | ");
-            thirdr.setText(setRightTextFases((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
-            
+            Platform.runLater(() -> {
+                first.setText("1. "+(a.get(0)).split(",")[1] +" | ");
+                firstr.setText(setRightTextFases((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
+                second.setText("2. "+(a.get(1)).split(",")[1]+" | ");
+                secondr.setText(setRightTextFases((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
+                third.setText("3. "+(a.get(2)).split(",")[1]+" | ");
+                thirdr.setText(setRightTextFases((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
+            });
         } catch (FirebaseException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -224,29 +209,33 @@ public class JogoController implements Initializable {
             list.add(new PieChart.Data("Bomba", pbomba));
             list.add(new PieChart.Data("Controlador Temporal", pcontrolador));
             list.add(new PieChart.Data("Trampolim", ptrampolim));
-            pie2.setData(list);
-            pie2.setLegendVisible(false);
-            pie2.setLabelsVisible(false);
+            Platform.runLater(() -> {
+                pie2.setData(list);
+                pie2.setLegendVisible(false);
+                pie2.setLabelsVisible(false);
+            });
             ArrayList<String> a = new ArrayList<String>();
             a.add(pbomba + ",Bomba");
             a.add(ptrampolim + ",Trampolim");
             a.add(pcontrolador + ",Controlador Temporal");
             a.add(pbloco + ",Bloco Especial");
             Collections.sort(a, Collections.reverseOrder());
-            first1.setText("1. "+(a.get(0)).split(",")[1] +" | ");
-            firstr1.setText("Comprado "+setRightTextItens((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
-            second1.setText("2. "+(a.get(1)).split(",")[1]+" | ");
-            secondr1.setText("Comprado "+setRightTextItens((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
-            third1.setText("3. "+(a.get(2)).split(",")[1]+" | ");
-            thirdr1.setText("Comprado "+setRightTextItens((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
-            fourth1.setText("4. "+(a.get(3)).split(",")[1]+" | ");
-            fourthr1.setText("Comprado "+setRightTextItens((a.get(3)).split(",")[1]) + " vezes: " + (a.get(3)).split(",")[0] + "%");
+            Platform.runLater(() -> {
+                first1.setText("1. "+(a.get(0)).split(",")[1] +" | ");
+                firstr1.setText("Comprado "+setRightTextItens((a.get(0)).split(",")[1]) + " vezes: " + (a.get(0)).split(",")[0] + "%");
+                second1.setText("2. "+(a.get(1)).split(",")[1]+" | ");
+                secondr1.setText("Comprado "+setRightTextItens((a.get(1)).split(",")[1]) + " vezes: " + (a.get(1)).split(",")[0] + "%");
+                third1.setText("3. "+(a.get(2)).split(",")[1]+" | ");
+                thirdr1.setText("Comprado "+setRightTextItens((a.get(2)).split(",")[1]) + " vezes: " + (a.get(2)).split(",")[0] + "%");
+                fourth1.setText("4. "+(a.get(3)).split(",")[1]+" | ");
+                fourthr1.setText("Comprado "+setRightTextItens((a.get(3)).split(",")[1]) + " vezes: " + (a.get(3)).split(",")[0] + "%");
+            });
         } catch (FirebaseException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        }).start();
     }    
     public int setRightTextFases(String marca) {
         if (marca.equals("Fase Aérea"))
@@ -266,94 +255,6 @@ public class JogoController implements Initializable {
         else 
             return bloco;
     }
-    @FXML
-    public void sair() {
-        Platform.exit();
-    }
 
-    @FXML
-    private void entered() {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        t.setToX(150);
-        t.setNode(gplabels);
-        t.play(); 
-        t.setOnFinished((ActionEvent actionEvent) -> {
-            gplabels.setEffect(new DropShadow(5, Color.BLACK));
-        });
-    }
-    
-    @FXML
-    private void exited() {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        t.setToX(0);
-        t.setNode(gplabels);
-        t.play();  
-        t.setOnFinished((ActionEvent actionEvent) -> {
-            gplabels.setEffect(null);
-        });
-    }
-    
-    @FXML
-    void entrarApp(MouseEvent event) throws IOException {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        if (aux[0]) {
-            t.setToY(150);
-            aux[0] = false;
-            aux[1] = true;
-        }
-        else if (aux[2]) {
-            t.setToY(150);
-            aux[2] = false;
-            aux[1] = true;
-        }
-        t.setNode(active);
-        t.play();  
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/aplicativo.fxml"));
-        sp.setContent(app);
-    }
-
-    @FXML
-    void entrarJogo(MouseEvent event) throws IOException {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        if (aux[1]) {
-            aux[1] = false;
-        } else if (aux[2]) {
-            aux[2] = false;
-        }
-        aux[0] = true;
-        t.setToY(0);
-        t.setNode(active);
-        t.play(); 
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/jogo.fxml"));
-        sp.setContent(app);
-    }
-
-    @FXML
-    void entrarWebsite(MouseEvent event) throws IOException {
-        TranslateTransition t = new TranslateTransition();
-        t.setDuration(Duration.seconds(0.4));
-        if (aux[0]) {
-            t.setToY(300);
-            aux[0] = false;
-            aux[2] = true;
-        }
-        else if (aux[1]) {
-            t.setToY(300);
-            aux[1] = false;
-            aux[2] = true;
-        }
-        t.setNode(active);
-        t.play();
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/website.fxml"));
-        sp.setContent(app);sp.vbarPolicyProperty();
-    }
-    
-    public void t(ScrollPane sp) {
-        this.sp = sp;
-    }
-    
 }
+

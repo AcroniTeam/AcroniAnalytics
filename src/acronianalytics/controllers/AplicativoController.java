@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
@@ -50,7 +51,7 @@ public class AplicativoController implements Initializable {
     private AreaChart<?, ?> line;
     
     @FXML
-    private NumberAxis xAxis;
+    private CategoryAxis xAxis;
 
     @FXML
     private NumberAxis yAxis;
@@ -67,13 +68,15 @@ public class AplicativoController implements Initializable {
     private static ScrollPane sp;
     
     boolean[] aux = new boolean[3];
+    String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
+        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
+        Firebase firebase;
     int p, np;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aux[0] = true;
-        String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
-        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
-        Firebase firebase;
+        
+        new Thread(() -> {
         //Gráfico dos teclados criados
         try {
             firebase = new Firebase(firebase_baseUrl);
@@ -86,10 +89,13 @@ public class AplicativoController implements Initializable {
             for (int i = 1; i <= Calendar.getInstance().get(Calendar.MONTH)+1; i++) {
                 series.getData().add(new XYChart.Data<>(mesPTBR(i),Integer.parseInt(json.getAsJsonObject(mesPTBR(i)).get("qntTecladosProduzidosPorMes").toString())));
             }
-            line.setLegendVisible(false);
-            yAxis.setLabel("N.º Teclados");
-            yAxis.setTickUnit(100);
-            line.getData().add(series);
+            Platform.runLater(() -> {
+                xAxis.setAnimated(false);
+                line.setLegendVisible(false);
+                yAxis.setLabel("N.º Teclados");
+                yAxis.setTickUnit(100);
+                line.getData().add(series);
+            });
         } catch (FirebaseException ex) {
             Logger.getLogger(WebsiteController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
@@ -111,17 +117,19 @@ public class AplicativoController implements Initializable {
             int pnp = (np*100)/total;
             list.add(new PieChart.Data("Comum", pnp));
             list.add(new PieChart.Data("Premium", pp));
-            comum.setText(pnp+"% comum");
-            premium.setText(pp+"% premium");
-            pie.setData(list);
-            pie.setLegendVisible(false);
-            pie.setLabelsVisible(false);
-            
+            Platform.runLater(() -> {
+                comum.setText(pnp+"% comum");
+                premium.setText(pp+"% premium");
+                pie.setData(list);
+                pie.setLegendVisible(false);
+                pie.setLabelsVisible(false);
+            });
         } catch (FirebaseException ex) {
             Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }).start();
     }    
     
     public String getActualMonth()
