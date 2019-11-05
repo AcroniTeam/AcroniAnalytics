@@ -104,7 +104,7 @@ public class LoginController implements Initializable {
             String s = txt1.getText();
             response = firebase.get("/loginFuncionario/"+txt1.getText()).getRawBody();
             
-            if (!response.equals("null") || !txt1.getText().equals("")) {
+            if (!response.equals("null") && !txt1.getText().equals("")) {
                 txt1.setStyle("-fx-text-box-border: transparent;");
                 Gson gson = new Gson();
                 JsonElement element = gson.fromJson (response, JsonElement.class);
