@@ -5,6 +5,9 @@
  */
 package acronianalytics.controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +30,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.thegreshams.firebase4j.error.FirebaseException;
+import net.thegreshams.firebase4j.service.Firebase;
 
 /**
  * FXML Controller class
@@ -49,6 +54,9 @@ public class LoginController implements Initializable {
 
     @FXML
     private Pane sup;
+    String firebase_baseUrl = "https://analytics-7777.firebaseio.com/";
+        String firebase_apiKey = "AIzaSyCmE5kK8pdR1oyD3EOcU4zsnxYq2XSylIE";
+        Firebase firebase;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,44 +98,66 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    public void entrar() throws IOException {
-        ((Stage) txt1.getScene().getWindow()).close();
+    public void entrar() throws IOException, FirebaseException {
+        firebase = new Firebase(firebase_baseUrl);
+            String response;
+            String s = txt1.getText();
+            response = firebase.get("/loginFuncionario/"+txt1.getText()).getRawBody();
+            
+            if (!response.equals("null") || !txt1.getText().equals("")) {
+                txt1.setStyle("-fx-text-box-border: transparent;");
+                Gson gson = new Gson();
+                JsonElement element = gson.fromJson (response, JsonElement.class);
+                JsonObject json = element.getAsJsonObject(); 
+                if (json.get("senha").toString().equals(txt2.getText())) {
+                    ((Stage) txt1.getScene().getWindow()).close();
     
-        Node root = FXMLLoader.load(getClass().getResource("/acronianalytics/views/masterpage.fxml"));
-        Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/jogo.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/acronianalytics/views/masterpage.fxml"));
-        Parent noot = loader.load();
+                    Node root = FXMLLoader.load(getClass().getResource("/acronianalytics/views/masterpage.fxml"));
+                    Node app = FXMLLoader.load(getClass().getResource("/acronianalytics/views/jogo.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/acronianalytics/views/masterpage.fxml"));
+                    Parent noot = loader.load();
+
+                    MasterpageController ctrl = (MasterpageController)loader.getController();
+
+                    ScrollPane sp = new ScrollPane();
+                    sp.setPrefHeight(1040);
+                    sp.setFitToHeight(true);
+                    sp.setFitToWidth(true);
+                    ctrl.t(sp);
+                    sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                    sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+                    sp.setContent(app);
+                    AnchorPane ap = new AnchorPane();
+                    ap.getChildren().add(sp);
+                    ap.getChildren().add(root);
+
+                    AnchorPane.setRightAnchor(sp, 0.0);
+
+
+                    Stage st = new Stage();
+                    st.setScene(new Scene(ap)); 
+
+                    st.initStyle(StageStyle.UNDECORATED);
+                    Screen screen = Screen.getPrimary();
+                    Rectangle2D bounds = screen.getVisualBounds();
+                    st.setX(bounds.getMinX());
+                    st.setY(bounds.getMinY());
+                    st.setWidth(bounds.getWidth());
+                    st.setHeight(bounds.getHeight());
+                    st.setResizable(false);
+
+                    st.show();
+                } else {
+                    txt2.setStyle("-fx-border-color: red ;");
+                }
+            }
+            else {
+                txt1.setStyle("-fx-border-color: red ;");
+            }
+            
         
-        MasterpageController ctrl = (MasterpageController)loader.getController();
         
-        ScrollPane sp = new ScrollPane();
-        sp.setPrefHeight(1040);
-        sp.setFitToHeight(true);
-        sp.setFitToWidth(true);
-        ctrl.t(sp);
-        sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        sp.setContent(app);
-        AnchorPane ap = new AnchorPane();
-        ap.getChildren().add(sp);
-        ap.getChildren().add(root);
-                
-        AnchorPane.setRightAnchor(sp, 0.0);
         
-               
-        Stage st = new Stage();
-        st.setScene(new Scene(ap)); 
-        
-        st.initStyle(StageStyle.UNDECORATED);
-        Screen screen = Screen.getPrimary();
-        Rectangle2D bounds = screen.getVisualBounds();
-        st.setX(bounds.getMinX());
-        st.setY(bounds.getMinY());
-        st.setWidth(bounds.getWidth());
-        st.setHeight(bounds.getHeight());
-        st.setResizable(false);
-        
-        st.show();
         
     }
     

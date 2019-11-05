@@ -12,12 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import net.thegreshams.firebase4j.error.FirebaseException;
 
 public class Launcher extends Application {
     
+    
     @Override
     public void start(Stage primaryStage) throws IOException {
+        
+            
         Parent root = FXMLLoader.load(getClass().getResource("/acronianalytics/views/login.fxml"));
         try {
         
