@@ -101,14 +101,15 @@ public class WebsiteController implements Initializable {
             int plogitech = (logitech*100)/total;
             int predragon = (redragon*100)/total;
             int phyperx = (hyperx*100)/total;        
-            list.add(new PieChart.Data("HyperX", phyperx));
-            list.add(new PieChart.Data("Logitech", plogitech));
-            list.add(new PieChart.Data("Razer", prazer));
-            list.add(new PieChart.Data("Redragon", predragon));
+            list.add(new PieChart.Data(phyperx+"%", phyperx));
+            list.add(new PieChart.Data(plogitech+"%", plogitech));
+            list.add(new PieChart.Data(prazer+"%", prazer));
+            list.add(new PieChart.Data(predragon+"%", predragon));
             Platform.runLater(() -> {
+                pie.setLabelsVisible(true);
                 pie.setData(list);
                 pie.setLegendVisible(false);
-                pie.setLabelsVisible(false);
+                
             });    
             ArrayList<String> a = new ArrayList<String>();
             a.add(prazer + ",Razer");

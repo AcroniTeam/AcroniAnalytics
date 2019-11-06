@@ -158,13 +158,13 @@ public class JogoController implements Initializable {
             int paerea = (aerea*100)/total;
             int pdistorcida = (distorcida*100)/total;
             int psimilar = (similar*100)/total;
-            list.add(new PieChart.Data("Mundo Similar", psimilar));
-            list.add(new PieChart.Data("Fase Aérea", paerea));
-            list.add(new PieChart.Data("Fase Distorcida", pdistorcida));
+            list.add(new PieChart.Data(psimilar+"%", psimilar));
+            list.add(new PieChart.Data(paerea+"%", paerea));
+            list.add(new PieChart.Data(pdistorcida+"%", pdistorcida));
             Platform.runLater(() -> {
                 pie.setData(list);
                 pie.setLegendVisible(false);
-                pie.setLabelsVisible(false);
+                pie.setLabelsVisible(true);
             });
             ArrayList<String> a = new ArrayList<String>();
             a.add(paerea + ",Fase Aérea");
@@ -204,14 +204,14 @@ public class JogoController implements Initializable {
             int pbomba = (bomba*100)/total;
             int pcontrolador = (controlador*100)/total;
             int ptrampolim = (trampolim*100)/total;
-            list.add(new PieChart.Data("Bloco Especial", pbloco));
-            list.add(new PieChart.Data("Bomba", pbomba));
-            list.add(new PieChart.Data("Controlador Temporal", pcontrolador));
-            list.add(new PieChart.Data("Trampolim", ptrampolim));
+            list.add(new PieChart.Data(pbloco+"%", pbloco));
+            list.add(new PieChart.Data(pbomba+"%", pbomba));
+            list.add(new PieChart.Data(pcontrolador+"%", pcontrolador));
+            list.add(new PieChart.Data(ptrampolim+"%", ptrampolim));
             Platform.runLater(() -> {
                 pie2.setData(list);
                 pie2.setLegendVisible(false);
-                pie2.setLabelsVisible(false);
+                pie2.setLabelsVisible(true);
             });
             ArrayList<String> a = new ArrayList<String>();
             a.add(pbomba + ",Bomba");

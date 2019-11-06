@@ -30,6 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JOptionPane;
 import net.thegreshams.firebase4j.error.FirebaseException;
 import net.thegreshams.firebase4j.service.Firebase;
 
@@ -99,6 +100,7 @@ public class LoginController implements Initializable {
 
     @FXML
     public void entrar() throws IOException, FirebaseException {
+        try {
         firebase = new Firebase(firebase_baseUrl);
             String response;
             String s = txt1.getText();
@@ -155,7 +157,9 @@ public class LoginController implements Initializable {
                 txt1.setStyle("-fx-border-color: red ;");
             }
             
-        
+        } catch(FirebaseException e) {
+            JOptionPane.showMessageDialog(null, "Sem acesso à internet.");
+        }
         
         
         

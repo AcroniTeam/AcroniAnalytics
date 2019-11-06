@@ -6,3 +6,6 @@
     -fx-background-insets: 0;
     -fx-border-width: 0;
 }
+.chart-pie-label {
+  -fx-font-size: 20px ;
+}

@@ -106,14 +106,14 @@ public class AplicativoController implements Initializable {
             ObservableList<PieChart.Data> list = FXCollections.observableArrayList();
             int pp = (p*100)/total;
             int pnp = (np*100)/total;
-            list.add(new PieChart.Data("Comum", pnp));
-            list.add(new PieChart.Data("Premium", pp));
+            list.add(new PieChart.Data(pnp+"%", pnp));
+            list.add(new PieChart.Data(pp+"%", pp));
             Platform.runLater(() -> {
                 comum.setText(pnp+"% comum");
                 premium.setText(pp+"% premium");
                 pie.setData(list);
                 pie.setLegendVisible(false);
-                pie.setLabelsVisible(false);
+                pie.setLabelsVisible(true);
             });
         } catch (FirebaseException ex) {
             Logger.getLogger(AplicativoController.class.getName()).log(Level.SEVERE, null, ex);
