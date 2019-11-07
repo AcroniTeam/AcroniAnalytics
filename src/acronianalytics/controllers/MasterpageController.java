@@ -133,7 +133,7 @@ public class MasterpageController implements Initializable {
 
     @FXML
     private void sair(MouseEvent event) {
-        Platform.exit();
+        
     }
     
     public void t(ScrollPane sp) {

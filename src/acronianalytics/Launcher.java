@@ -5,13 +5,16 @@
  */
 package acronianalytics;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.ImageIcon;
 
 public class Launcher extends Application {
     
@@ -22,9 +25,9 @@ public class Launcher extends Application {
             
         Parent root = FXMLLoader.load(getClass().getResource("/acronianalytics/views/login.fxml"));
         try {
-        
-            primaryStage.setTitle("Shit is crazy shit is yaeji");
+            primaryStage.setTitle("Acroni");
             primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.getIcons().add(new Image(new FileInputStream("src/res/img/logo.png"))); 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
