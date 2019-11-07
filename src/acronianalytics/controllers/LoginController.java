@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +17,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +29,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -141,6 +144,10 @@ public class LoginController implements Initializable {
         btnEntrar.setStyle("-fx-background-color: #0093ff;");
     }
     
+    @FXML
+    public void onEnter(ActionEvent ae) throws IOException, FirebaseException{
+        entrar();
+    }
 
     @FXML
     public void entrar() throws IOException, FirebaseException {
@@ -181,6 +188,7 @@ public class LoginController implements Initializable {
 
 
                     Stage st = new Stage();
+                    st.getIcons().add(new Image(new FileInputStream("src/res/img/logo.png"))); 
                     st.setScene(new Scene(ap)); 
 
                     st.initStyle(StageStyle.UNDECORATED);

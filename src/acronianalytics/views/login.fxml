@@ -48,7 +48,7 @@
             <String fx:value="text-field" />
          </styleClass>
       </TextField>
-      <TextField fx:id="txt2" maxWidth="350.0" prefHeight="50.0" style="-fx-background-radius: 5pt; -fx-padding-left: 2pt;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+      <TextField fx:id="txt2" maxWidth="350.0" onAction="#onEnter" prefHeight="50.0" style="-fx-background-radius: 5pt; -fx-padding-left: 2pt;" GridPane.halignment="CENTER" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets top="100.0" />
          </GridPane.margin>
