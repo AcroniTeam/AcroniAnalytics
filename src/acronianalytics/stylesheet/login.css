@@ -8,5 +8,5 @@
 }
 
 .clear-text-field:focused {
-    -fx-text-box-border: #0093ff
+    -fx-text-box-border: #0093ff;
 }
