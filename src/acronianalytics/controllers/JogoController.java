@@ -111,15 +111,13 @@ public class JogoController implements Initializable {
             String response;
             response = firebase.get("/relatoriosGlobais/game/desconto").getRawBody();
                        
-            Gson gson = new Gson();
-            JsonElement element = gson.fromJson (response, JsonElement.class);
-            JsonObject json = element.getAsJsonObject(); 
+            String[] json = response.split(",");
             
             
             XYChart.Series<String, Number> series1 = new XYChart.Series<>(); 
             for (int i = 1; i < 21; i++) {
                 series1.setName(i+"");
-                series1.getData().add(new XYChart.Data<>(i+"", Integer.parseInt(json.get(""+i).toString())));   
+                series1.getData().add(new XYChart.Data<>(i+"", Integer.parseInt(json[i].toString().replace("]", ""))));   
             }
             
             Platform.runLater(() -> {
